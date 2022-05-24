@@ -46,3 +46,12 @@ class ContrastEnhancemer:
         self.new_pixel['SB'] = skfuzz.gaussmf(self.new_pixel.universe,15,5)
         self.new_pixel['VB'] = skfuzz.gaussmf(self.new_pixel.universe,50,6)
     
+    def InitRules(self): 
+        r1 = ctrl.Rule(self.pixel['vdark'],self.new_pixel['SD'])
+        r2 = ctrl.Rule(self.pixel['DG'],self.new_pixel['SD'])
+        r3 = ctrl.Rule(self.pixel['gray'],self.new_pixel['SD'])
+        r4 = ctrl.Rule(self.pixel['bright'],self.new_pixel['SB'])
+        r5 = ctrl.Rule(self.pixel['dark'],self.new_pixel['VD'])
+        r6 = ctrl.Rule(self.pixel['vbright'],self.new_pixel['NC'])
+        r7 = ctrl.Rule(self.pixel['LG'],self.new_pixel['SD'])
+        
