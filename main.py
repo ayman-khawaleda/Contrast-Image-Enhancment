@@ -1,5 +1,5 @@
-import skfuzzy as fuzz
-import numpy as np
+from ContrastSystem import ContrastEnhancemer as CE
 
 if __name__ == "__main__":
-    pass
+    ce = CE()
+    ce.Init_Input()
