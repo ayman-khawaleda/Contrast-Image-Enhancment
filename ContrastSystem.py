@@ -58,3 +58,18 @@ class ContrastEnhancemer:
         self.ContrastEnhancementSystemSimulation = ctrl.ControlSystemSimulation(
             self.ContrastEnhancementSystem
         )
+    
+    def compute(self,value):
+        self.ContrastEnhancementSystemSimulation.input['pixel'] = value
+        self.ContrastEnhancementSystemSimulation.compute()
+        return self.ContrastEnhancementSystemSimulation.output['new_pixel']
+        
+    def show(self):
+        self.pixel.view()
+        self.new_pixel.view()
+        plt.show()
+    
+    def clip(self,value):
+        if value>=255:return 255
+        elif value<=0:return 0
+        return value
