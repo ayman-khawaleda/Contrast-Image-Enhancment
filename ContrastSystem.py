@@ -9,9 +9,8 @@ import random
 matplotlib.use("GTK3Agg")
 
 IMAGE_FILES = [
-    "./Resource/enishtein.png",
+    "./Resource/einstein.png",
     "./Resource/earth.jpeg",
-    "./Resource/lake.jpg",
     "./Resource/lena.jpg",
     "./Resource/woman.jpeg",
 ]
@@ -21,6 +20,8 @@ class ContrastEnhancemer:
     def __init__(self):
         self.image = cv2.imread(IMAGE_FILES[random.randint(0, len(IMAGE_FILES) - 1)])
         self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        self.Init_Input()
+        self.InitRules()
 
     def load_image(self, filename: str = None):
         if not filename is None:
@@ -73,3 +74,22 @@ class ContrastEnhancemer:
         if value>=255:return 255
         elif value<=0:return 0
         return value
+    
+    def apply(self):
+        gray_image = cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY)
+        self.new_image = np.zeros(gray_image.shape)        
+        for i in range(gray_image.shape[0]):
+            for j in range(gray_image.shape[1]):
+                new_value = self.compute(gray_image[i,j])
+                clip_val = self.clip(gray_image[i,j] + new_value)
+                self.new_image[i,j] = clip_val
+
+    def show(self):
+        fig = plt.figure()
+        plt.subplot(1,2,1)
+        plt.imshow(self.image)
+        plt.title("Before")
+        plt.subplot(1,2,2)
+        plt.imshow(self.new_image,'gray')
+        plt.title("After")
+        plt.show()
