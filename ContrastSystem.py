@@ -3,7 +3,7 @@ from skfuzzy import control as ctrl
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-import cv2
+from cv2 import imread,cvtColor,COLOR_BGR2RGB,COLOR_RGB2GRAY
 import random
 
 matplotlib.use("GTK3Agg")
@@ -18,15 +18,15 @@ IMAGE_FILES = [
 
 class ContrastEnhancemer:
     def __init__(self):
-        self.image = cv2.imread(IMAGE_FILES[random.randint(0, len(IMAGE_FILES) - 1)])
-        self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        self.image = imread(IMAGE_FILES[random.randint(0, len(IMAGE_FILES) - 1)])
+        self.image = cvtColor(self.image, COLOR_BGR2RGB)
         self.Init_Input()
         self.InitRules()
 
     def load_image(self, filename: str = None):
         if not filename is None:
-            self.image = cv2.imread(filename)
-            self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+            self.image = imread(filename)
+            self.image = cvtColor(self.image, COLOR_BGR2RGB)
 
     def Init_Input(self):
         self.pixel = ctrl.Antecedent(np.arange(0, 256, 1), "pixel")
@@ -76,7 +76,7 @@ class ContrastEnhancemer:
         return value
     
     def apply(self):
-        gray_image = cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY)
+        gray_image = cvtColor(self.image, COLOR_RGB2GRAY)
         self.new_image = np.zeros(gray_image.shape)        
         for i in range(gray_image.shape[0]):
             for j in range(gray_image.shape[1]):
