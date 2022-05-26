@@ -65,7 +65,7 @@ class ContrastEnhancemer:
         self.ContrastEnhancementSystemSimulation.compute()
         return self.ContrastEnhancementSystemSimulation.output['new_pixel']
         
-    def show(self):
+    def show_pltots(self):
         self.pixel.view()
         self.new_pixel.view()
         plt.show()
